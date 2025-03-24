@@ -3,16 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FibonacciComparisonComponent } from './components/fibonacci-comparison/fibonacci-comparison.component';
+import { FormsModule } from '@angular/forms';
+import { WasmService } from './services/wasm.service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FibonacciComparisonComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    CommonModule,
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [WasmService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

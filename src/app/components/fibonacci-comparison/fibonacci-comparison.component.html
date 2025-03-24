@@ -1,0 +1,60 @@
+<div class="container">
+  <h2>Comparación de rendimiento: Angular y WebAssembly</h2>
+
+  <div class="config-panel">
+    <div class="form-group">
+      <label for="fibonacci-input">Número de Fibonacci a calcular:</label>
+      <input
+        id="fibonacci-input"
+        type="number"
+        [(ngModel)]="inputValue"
+        min="1"
+        max="45"
+      />
+    </div>
+
+    <button (click)="runComparison()" [disabled]="calculating || !wasmLoaded">
+      {{ calculating ? "Calculando..." : "Ejecutar comparación" }}
+    </button>
+
+    <p *ngIf="!wasmLoaded" class="loading-message">
+      Cargando módulo WebAssembly...
+    </p>
+  </div>
+
+  <div class="results-container" *ngIf="results.length > 0">
+    <h3>Resultados:</h3>
+
+    <div class="result-card" *ngFor="let result of results">
+      <h4>{{ result.method }}</h4>
+      <div class="result-details">
+        <div class="result-item">
+          <span class="label">Resultado:</span>
+          <span class="value">{{ result.result }}</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Tiempo:</span>
+          <span class="value">{{ result.time }} ms</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container" *ngIf="results.length >= 2">
+      <h3>Comparación de rendimiento:</h3>
+      <div class="bar-chart">
+        <div *ngFor="let result of results" class="bar-container">
+          <div
+            class="bar"
+            [ngStyle]="{ 'height.%': (result.time / maxTime) * 100 }"
+            [ngClass]="{
+              'wasm-bar': result.method.includes('WebAssembly'),
+              'js-bar': result.method.includes('JavaScript')
+            }"
+          ></div>
+          <div class="bar-label">{{ result.time }} ms</div>
+          <div class="bar-method">{{ result.method }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

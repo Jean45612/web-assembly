@@ -36,6 +36,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "*.wasm",
+                "input": "src/assets",
+                "output": "/assets/"
               }
             ],
             "styles": [
