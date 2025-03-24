@@ -27,35 +27,23 @@ export class FibonacciComparisonComponent {
   async runComparison() {
     if (this.calculating) return;
 
-    try {
-      this.calculating = true;
+    this.calculating = true;
+    this.results = [];
+    setTimeout(() => {
+      this.executeCalculations();
+    }, 50);
+  }
 
-      this.results = [];
-      const n = this.inputValue;
-
-      // Ejecutamos todas las versiones y medimos el tiempo
-      await this.measurePerformance('JavaScript (Recursivo)', () =>
-        this.wasmService.fibonacciRecursiveJS(n)
-      );
-
-      await this.measurePerformance('JavaScript (Iterativo)', () =>
-        this.wasmService.fibonacciIterativeJS(n)
-      );
-
-      await this.measurePerformance(
-        'WebAssembly (Recursivo)',
-        async () => await this.wasmService.fibonacciRecursiveWasm(n)
-      );
-
-      await this.measurePerformance(
-        'WebAssembly (Iterativo)',
-        async () => await this.wasmService.fibonacciIterativeWasm(n)
-      );
-    } catch (error) {
-      console.log('error calculando', error);
-    } finally {
-      this.calculating = false;
-    }
+  private async executeCalculations() {
+    const n = this.inputValue;
+    
+    // Ejecutamos todas las versiones y medimos el tiempo
+    await this.measurePerformance('JavaScript (Recursivo)', () => this.wasmService.fibonacciRecursiveJS(n));
+    await this.measurePerformance('JavaScript (Iterativo)', () => this.wasmService.fibonacciIterativeJS(n));
+    await this.measurePerformance('WebAssembly (Recursivo)', async () => await this.wasmService.fibonacciRecursiveWasm(n));
+    await this.measurePerformance('WebAssembly (Iterativo)', async () => await this.wasmService.fibonacciIterativeWasm(n));
+    
+    this.calculating = false;
   }
 
   async measurePerformance(method: string, func: () => any) {
