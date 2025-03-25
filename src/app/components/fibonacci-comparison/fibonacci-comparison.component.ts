@@ -27,6 +27,11 @@ export class FibonacciComparisonComponent {
   async runComparison() {
     if (this.calculating) return;
 
+    if(this.inputValue > 45) {
+      alert('El valor máximo permitido es 45');
+      return;
+    }
+
     this.calculating = true;
     this.results = [];
     setTimeout(() => {

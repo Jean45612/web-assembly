@@ -8,9 +8,8 @@
         id="fibonacci-input"
         type="number"
         [(ngModel)]="inputValue"
-        min="1"
-        max="45"
       />
+      <small>El número debe estar entre 1 y 45.</small>
     </div>
 
     <button (click)="runComparison()" [disabled]="calculating || !wasmLoaded">
