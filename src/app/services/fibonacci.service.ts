@@ -1,11 +1,9 @@
-// src/app/services/wasm.service.ts
-
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class WasmService {
+export class FibonacciService {
   private wasmModule: any;
   private isLoaded = false;
 
@@ -18,26 +16,26 @@ export class WasmService {
       // Importamos el módulo WebAssembly compilado
       const importObject = {
         env: {
-          memory: new WebAssembly.Memory({ initial: 256, maximum: 256 })
-        }
+          memory: new WebAssembly.Memory({ initial: 256, maximum: 256 }),
+        },
       };
 
       const response = await fetch('assets/fibonacci.wasm');
       const bytes = await response.arrayBuffer();
       const wasmModule = await WebAssembly.instantiate(bytes, importObject);
-      
+
       this.wasmModule = wasmModule.instance.exports;
       this.isLoaded = true;
-      console.log('WebAssembly módulo cargado correctamente');
+      console.log('WebAssembly Fibonacci módulo cargado correctamente');
     } catch (error) {
-      console.error('Error al cargar el módulo WebAssembly:', error);
+      console.error('Error al cargar el módulo WebAssembly Fibonacci:', error);
     }
   }
 
   // Método para esperar a que WASM esté cargado
   async waitForWasmLoaded(): Promise<void> {
     if (this.isLoaded) return Promise.resolve();
-    
+
     return new Promise((resolve) => {
       const checkInterval = setInterval(() => {
         if (this.isLoaded) {
@@ -81,8 +79,10 @@ export class WasmService {
   // Implementación en JavaScript para comparación (iterativa)
   fibonacciIterativeJS(n: number): number {
     if (n <= 1) return n;
-    
-    let a = 0, b = 1, c;
+
+    let a = 0,
+      b = 1,
+      c;
     for (let i = 2; i <= n; i++) {
       c = a + b;
       a = b;

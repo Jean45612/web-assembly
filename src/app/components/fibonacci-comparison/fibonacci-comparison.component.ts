@@ -1,7 +1,7 @@
 // src/app/components/fibonacci-comparison/fibonacci-comparison.component.ts
 
 import { Component } from '@angular/core';
-import { WasmService } from '../../services/wasm.service';
+import { FibonacciService } from '../../services/fibonacci.service';
 
 @Component({
   selector: 'app-fibonacci-comparison',
@@ -15,7 +15,7 @@ export class FibonacciComparisonComponent {
   wasmLoaded = false;
   maxTime = 30;
 
-  constructor(private wasmService: WasmService) {
+  constructor(private wasmService: FibonacciService) {
     this.checkWasmLoaded();
   }
 

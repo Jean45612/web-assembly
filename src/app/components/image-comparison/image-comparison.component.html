@@ -1,0 +1,20 @@
+<div class="file-upload">
+  <input type="file" (change)="onFileSelected($event)" />
+  <button (click)="processImage()" [disabled]="!imageSrc || !wasmLoaded">
+    Procesar Imagen
+  </button>
+</div>
+
+<div class="image-container">
+  <div *ngIf="imageTsData" class="image-wrapper">
+    <p>TypeScript:</p>
+    <img [src]="imageTsData" alt="Imagen procesada con TypeScript" />
+    <p>Tiempo (TypeScript): {{ imageTsTime }} ms</p>
+  </div>
+
+  <div *ngIf="imageWasmData" class="image-wrapper">
+    <p>WebAssembly:</p>
+    <img [src]="imageWasmData" alt="Imagen procesada con WebAssembly" />
+    <p>Tiempo (WebAssembly): {{ imageWasmTime }} ms</p>
+  </div>
+</div>
